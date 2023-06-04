@@ -74,7 +74,13 @@ export default {
     },
     methods: {
         findUsers() {
-            axios.get('http://localhost:8080/api/users')
+            const config = {
+                headers:{
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`,                    
+                }
+            };
+
+            axios.get('http://localhost:8080/api/users', config)
             .then((response) => {
                 this.users = response.data.data;
                 // console.log(this.users);
@@ -134,7 +140,7 @@ export default {
             this.user.name = data.name;
             this.user.address = data.address;
             this.idUser = data.id;
-        }
+        }        
     },
     mounted() {
         this.findUsers();
